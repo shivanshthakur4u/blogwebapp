@@ -1,12 +1,13 @@
+import Format from "../layout/format"
 
-
-import Headers from "@/components/header"
+//components
+import Section1 from '../components/section1'
 
 
 export default function Home() {
   return (
-    <div>
-     <Headers/>
-    </div>
+    <Format>
+     <Section1></Section1>
+    </Format>
   )
 }
