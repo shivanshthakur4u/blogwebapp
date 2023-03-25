@@ -2,6 +2,7 @@ import React from "react";
 import Format from "../../layout/format";
 import Author from "../../components/_child/author";
 import Image from "next/image";
+import Related from '../../components/_child/related'
 const page = () => {
   return (
     <Format>
@@ -41,6 +42,7 @@ const page = () => {
           blind.</p>
           
            </div>
+           <Related/>
         </div>
       </section>
     </Format>
