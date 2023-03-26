@@ -24,3 +24,18 @@ a {
 .input-text:focus {
     @apply outline-none border-sky-500 ring-1 ring-sky-500
 }
+
+.loader {
+    @apply border-gray-200 rounded-full border-4 ease-linear h-10 w-10;
+    border-top-color: blueviolet;
+    animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

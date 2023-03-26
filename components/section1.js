@@ -3,12 +3,22 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore ,{Autoplay} from 'swiper';
 import Image from "next/image";
 import Link from "next/link";
-
+import fetcher from '../lib/fetcher';
+import Spinner from "./_child/spinner";
+import Error from "./_child/error";
 import 'swiper/css';
 
 import Author from '../components/_child/author'
 
 const section1 = () => {
+
+  const {data,isLoading, isError}= fetcher('api/trending')
+
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
+  
+  if(isError) return<Error/>
   SwiperCore.use([Autoplay])
   const bg={
     background:"url('/images/bgimage.png') no-repeat",
@@ -26,10 +36,12 @@ const section1 = () => {
       }}
       
     >
-      <SwiperSlide>{Slide()}</SwiperSlide>
-      <SwiperSlide>{Slide()}</SwiperSlide>
-      <SwiperSlide>{Slide()}</SwiperSlide>
-      <SwiperSlide>{Slide()}</SwiperSlide>
+      {
+        data.map((value,index)=>{
+         return <SwiperSlide key={index}><Slide data={value}/></SwiperSlide>
+     
+        })
+      }
     </Swiper>
         
       </div>
@@ -39,13 +51,16 @@ const section1 = () => {
 
 export default section1;
 
-function Slide() {
+function Slide({data}) {
+ 
+  const {id, category, img, published, title,author,subtitle,description}=data;
+
   return (
     <div className="grid md:grid-cols-2">
       <div className="image">
         <Link legacyBehavior href={"/"}>
           <a>
-            <Image src={"/images/image1.jpg"} width={600} height={600} />
+            <Image src={img||"/"} width={600} height={600} />
           </a>
         </Link>
       </div>
@@ -53,26 +68,24 @@ function Slide() {
         <div className="cat">
           <Link legacyBehavior href={"/"}>
             <a className="text-orange-600 hover:text-orange-800">
-              Business, Travel
+              {category || "unknown"}
             </a>
           </Link>
           <Link legacyBehavior href={"/"}>
-            <a className="text-gray-600 hover:text-gray-800">-July9,2023</a>
+            <a className="text-gray-600 hover:text-gray-800">-{published}</a>
           </Link>
         </div>
         <div className="title">
           <Link legacyBehavior href={"/"}>
             <a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">
-              Your Most uhhappy customer are your greatest source of learning
+              {title || "title"}
             </a>
           </Link>
         </div>
         <p className="text-gray-700 py-3">
-          Even the all-powerful pointing has no control about the blind texts it
-          is on almost unorthographic life One day however a small line of
-          blind.
+          {description}
         </p>
-        <Author/>
+       {author ?  <Author name={author.name} image={author.image} designation={author.designation}/>:<></>}
       </div>
     </div>
   );

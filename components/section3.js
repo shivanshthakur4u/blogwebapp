@@ -3,18 +3,31 @@ import Link from 'next/link'
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Author from '../components/_child/author'
+import fetcher from '../lib/fetcher';
+import Spinner from "./_child/spinner";
+import Error from "./_child/error";
+
+
 const section3 = () => {
+
+  const {data,isLoading, isError}= fetcher('api/popular')
+
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
+  
+  if(isError) return<Error/>
   return (
     <div className='container mx-auto md:px-20 py-16'>
         <h1 className='font-bold text-4xl py-12 text-center'>Most Popular</h1>
         {/* swiper */}
         <Swiper slidesPerView={2}>
-            <SwiperSlide>{post()}</SwiperSlide>
-            <SwiperSlide>{post()}</SwiperSlide>
-            <SwiperSlide>{post()}</SwiperSlide>
-            <SwiperSlide>{post()}</SwiperSlide>
-            <SwiperSlide>{post()}</SwiperSlide>
-            <SwiperSlide>{post()}</SwiperSlide>
+           {
+            data.map((value, index)=>{
+              return  <SwiperSlide key={index}><Post data={value}/></SwiperSlide>
+           
+            })
+           }
         </Swiper>
     </div>
   )
@@ -22,13 +35,15 @@ const section3 = () => {
 
 export default section3
 
-function post (){
+function Post ({data}){
+
+  const {id, category, img, published, title,author,subtitle,description}=data;
     return(
         <div className='grid'>
             <div className='images'>
             <Link legacyBehavior href={"/"}>
           <a>
-            <Image src={"/images/image1.jpg"} width={600} height={400} />
+            <Image src={img|| "/"} width={600} height={400} />
           </a>
         </Link>
             </div>
@@ -36,26 +51,24 @@ function post (){
             <div className="cat">
           <Link legacyBehavior href={"/"}>
             <a className="text-orange-600 hover:text-orange-800">
-              Business, Travel
+             {category}
             </a>
           </Link>
           <Link legacyBehavior href={"/"}>
-            <a className="text-gray-600 hover:text-gray-800">-July9,2023</a>
+            <a className="text-gray-600 hover:text-gray-800">-{published}</a>
           </Link>
         </div>
         <div className="title">
           <Link legacyBehavior href={"/"}>
             <a className="text-3xl  md:text4-xl font-bold text-gray-800 hover:text-gray-600">
-              Your Most uhhappy customer are your greatest source of learning
+             {title || "title"}
             </a>
           </Link>
         </div>
         <p className="text-gray-700 py-3">
-          Even the all-powerful pointing has no control about the blind texts it
-          is on almost unorthographic life One day however a small line of
-          blind.
+          {subtitle}
         </p>
-        <Author/>
+     {author ?    <Author name={author.name} image={author.image} designation={author.designation}/>: <></>}
             </div>
         </div>
     )
