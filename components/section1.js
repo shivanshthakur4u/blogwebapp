@@ -58,7 +58,7 @@ function Slide({data}) {
   return (
     <div className="grid md:grid-cols-2">
       <div className="image">
-        <Link legacyBehavior href={"/"}>
+        <Link legacyBehavior href={`/posts/${id}`}>
           <a>
             <Image src={img||"/"} width={600} height={600} />
           </a>
@@ -66,17 +66,17 @@ function Slide({data}) {
       </div>
       <div className="info flex justify-center flex-col">
         <div className="cat">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-orange-600 hover:text-orange-800">
               {category || "unknown"}
             </a>
           </Link>
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-gray-600 hover:text-gray-800">-{published}</a>
           </Link>
         </div>
         <div className="title">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">
               {title || "title"}
             </a>

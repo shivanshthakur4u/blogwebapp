@@ -38,7 +38,7 @@ function Post ({data}){
     return(
         <div className='item'>
             <div className='images'>
-            <Link legacyBehavior href={"/"}>
+            <Link legacyBehavior href={`/posts/${id}`}>
           <a>
             <Image src={img||"/"} width={500} height={350} className=" rounded" />
           </a>
@@ -46,17 +46,17 @@ function Post ({data}){
             </div>
             <div className='info flex justify-center flex-col py-4'>
             <div className="cat">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-orange-600 hover:text-orange-800">
               {category||"unknown"}
             </a>
           </Link>
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-gray-600 hover:text-gray-800">-{published||"unknown"}</a>
           </Link>
         </div>
         <div className="title">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-xl  font-bold text-gray-800 hover:text-gray-600">
              {title||"Title"}
             </a>

@@ -7,7 +7,7 @@ import Spinner from "./_child/spinner";
 import Error from "./_child/error";
 const section4 = () => {
   
-  const {data,isLoading, isError}= fetcher('api/popular')
+  const {data,isLoading, isError}= fetcher('api/allposts')
 
   if(isLoading){
     return <Spinner></Spinner>
@@ -18,24 +18,24 @@ const section4 = () => {
     <div className='container mx-auto md:px-20 py-16'>
         <div className='grid lg:grid-cols-2'>
           <div className='item'>
-          <h1 className='font-bold text-4xl py-12 text-center'>Health</h1>
+          <h1 className='font-bold text-4xl py-12 text-center'>Technology</h1>
           <div className='flex flex-col gap-6'>
           
         {
           data.map((value, index)=>{
-         { value.category =="Health" ? <Post key={index} data={value}></Post>:<></>}
+      return  value.category ==="Technology" ?  <Post key={index} data={value}></Post>:<></>
           })
         }
          
           </div>
           </div>
           <div className='item'>
-          <h1 className='font-bold text-4xl py-12 text-center'>Technology</h1>
+          <h1 className='font-bold text-4xl py-12 text-center'>Health</h1>
           <div className="flex flex-col gap-6">
          
           {
           data.map((value, index)=>{
-         { value.category =="Technology" ? <Post key={index} data={value}></Post>:<></>}
+         return value.category ==="Health" ? <Post key={index} data={value}></Post>:<></>
           })
         }
           </div>
@@ -58,23 +58,23 @@ function Post ({data}){
             </div>
             <div className='info flex justify-center flex-col'>
             <div className="cat">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-orange-600 hover:text-orange-800">
               {category}
             </a>
           </Link>
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-gray-600 hover:text-gray-800">-{published}</a>
           </Link>
         </div>
         <div className="title">
-          <Link legacyBehavior href={"/"}>
+          <Link legacyBehavior href={`/posts/${id}`}>
             <a className="text-xl font-bold text-gray-800 hover:text-gray-600">
-              {subtitle}
+              {title}
             </a>
           </Link>
         </div>
-        <Author/>
+       {author ?  <Author name={author.name} designation={author.designation} image={author.image}/>:<></>}
             </div>
         </div>
     )

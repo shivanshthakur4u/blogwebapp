@@ -2,10 +2,10 @@ import data from '../data'
 
 export default function handler(req,res){
    const {id}= req.query;
-   const {Posts} = data;
+   const {Allposts} = data;
 
    if(id){
-   const post= Posts.find(value=>value.id == id)
+   const post= Allposts.find(value=>value.id == id)
 
    return res.status(200).json(post)
    }
