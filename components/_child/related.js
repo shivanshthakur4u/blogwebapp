@@ -17,7 +17,7 @@ const related = () => {
     <section className="pt-20">
       <h1 className="font-bold text-3xl py-10">Related</h1>
       <div className="flex flex-col gap-10">{data.map((value, index)=>{
-         return  <Post data={value}/>
+         return  <Post key={index} data={value}/>
       })}</div>
     </section>
   );
@@ -32,7 +32,7 @@ function Post({data}) {
       <div className="image flex flex-col justify-start">
         <Link legacyBehavior href={`/posts/${id}`}>
           <a>
-            <Image
+            <Image alt="images"
               className="rounded"
               width={300}
               height={200}
